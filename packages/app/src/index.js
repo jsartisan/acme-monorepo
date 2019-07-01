@@ -1,13 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { render } from 'react-dom';
+import Root from 'components/Root';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+render(<Root />, document.getElementById('root'));
 
+/**
+ * enables hot module replacement
+ */
 if (module.hot && process.env.NODE_ENV !== 'production') {
   module.hot.accept();
 }
-
-serviceWorker.unregister();

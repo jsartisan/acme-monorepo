@@ -1,26 +1,25 @@
-const UserService = require('@app/services/UserService');
+const UserService = require("@app/services/UserService");
 
 const userService = new UserService();
 
 module.exports = {
   User: {
     id: user => user.id,
-    first_name: user => user.first_name,
-    last_name: user => user.last_name,
-    email: user => user.email,
+    name: user => user.name,
+    email: user => user.email
   },
 
   UserConnection: {
     edges: parent => parent.results,
     pageInfo: parent => ({
       hasPreviousPage: parent.cursors.hasPrevious,
-      hasNextPage: parent.cursors.hasNext,
-    }),
+      hasNextPage: parent.cursors.hasNext
+    })
   },
 
   UserEdge: {
     node: parent => parent,
-    cursor: parent => Buffer.from(`${parent.id}`).toString('base64'),
+    cursor: parent => Buffer.from(`${parent.id}`).toString("base64")
   },
 
   Query: {
@@ -34,7 +33,7 @@ module.exports = {
       }
 
       return null;
-    },
+    }
   },
 
   Mutation: {
@@ -42,6 +41,6 @@ module.exports = {
       const token = await userService.login(args);
 
       return token;
-    },
-  },
+    }
+  }
 };

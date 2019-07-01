@@ -1,12 +1,12 @@
-const bcrypt = require('bcrypt');
-const firebase = require('firebase');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt");
+const firebase = require("firebase");
+const jwt = require("jsonwebtoken");
 
-const config = require('@config');
-const { User } = require('@app/models');
-const { env } = require('@app/utils/helpers');
-const { rounds } = require('@config/hashing');
-const UserValidator = require('@app/validators/UserValidator');
+const config = require("@config");
+const { User } = require("@app/models");
+const { env } = require("@app/utils/helpers");
+const { rounds } = require("@config/hashing");
+const UserValidator = require("@app/validators/UserValidator");
 
 if (!firebase.apps.length) {
   firebase.initializeApp(config.firebase);
@@ -28,22 +28,14 @@ class UserService {
     try {
       await firebase.auth().signInWithCredential(credential);
 
-      var firstName = name
-        .split(' ')
-        .slice(0, -1)
-        .join(' ');
-      var lastName = name
-        .split(' ')
-        .slice(-1)
-        .join(' ');
-
       const user = await this.findOrCreateByEmail(email, {
         email: email,
-        first_name: firstName,
-        last_name: lastName,
+        name: lastName
       });
 
-      const token = jwt.sign({ id: user.id }, config.jwt.secret, { expiresIn: '7d' });
+      const token = jwt.sign({ id: user.id }, config.jwt.secret, {
+        expiresIn: "7d"
+      });
 
       return token;
     } catch (e) {
@@ -61,9 +53,9 @@ class UserService {
   async findOrCreateByEmail(email, defaults) {
     const user = await User.findOrCreate({
       where: {
-        email,
+        email
       },
-      defaults: defaults,
+      defaults: defaults
     });
 
     return user[0];
@@ -76,7 +68,7 @@ class UserService {
    */
   decodeJWT(authorizationHeader) {
     try {
-      const token = authorizationHeader.split(' ')[1];
+      const token = authorizationHeader.split(" ")[1];
       const { id } = jwt.verify(token, config.jwt.secret);
 
       return id;

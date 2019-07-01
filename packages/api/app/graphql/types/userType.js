@@ -16,8 +16,7 @@ module.exports = `
 
   type User {
     id: String
-    first_name: String
-    last_name: String
+    name: String
     email: String
   }
 

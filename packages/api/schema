@@ -1,0 +1,37 @@
+
+- User
+    - email
+    - name
+
+- Reviews
+    - id
+    - product_id
+    - content
+    - customer_id
+    - rating_id
+    - images
+    - is_published
+
+- Customer
+    - email
+    - name
+    - profile_picture
+    - is_verified
+
+- Product
+    - name
+    - url
+    - created_at
+    - updated_at
+    - images
+
+- widgets
+  - id
+  - code
+
+two templates
+ star rating
+ emoji rating
+
+
+

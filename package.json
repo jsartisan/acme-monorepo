@@ -4,7 +4,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "lerna run dev",
+    "code": "code packages/app && code packages/api && code packages/web",
+    "dev": "lerna run dev --stream",
     "test": "lerna run test --since",
     "new-version": "lerna version --conventional-commits --yes",
     "diff": "lerna diff"
